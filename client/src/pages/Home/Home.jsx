@@ -17,11 +17,41 @@ const Home = () => {
   
   const texts = ["Clear Fine", "Save Time", "Save Money", "Stay Safe"];
   const images = [
+    "/37a.jpg",
+    "/dd.png",
     "/20.jpg",
-    "/37.jpg",
-    "/10.jpg"
+    "/67.jpg",
+
+    "fine.jpg",
   ];
   
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 1.2,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.5 },
+        scale: { duration: 6 }
+      }
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 1.1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.5 }
+      }
+    })
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => setSlideIn(true), 300);
     return () => clearTimeout(timer);
@@ -29,14 +59,14 @@ const Home = () => {
 
   useEffect(() => {
     const textInterval = setInterval(() => {
-      setTextIndex(prev => (prev + 2) % texts.length);
+      setTextIndex(prev => (prev + 1) % texts.length);
     }, 4000);
     return () => clearInterval(textInterval);
   });
 
   useEffect(() => {
     const imageInterval = setInterval(() => {
-      setImageIndex(prev => (prev + 2) % images.length);
+      setImageIndex(prev => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(imageInterval);
   }, []);
@@ -72,33 +102,65 @@ const Home = () => {
       >
         {/* Hero Section */}
         <div className="relative h-[93.5vh] overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.img 
+          <AnimatePresence mode="wait" initial={false} custom={imageIndex}>
+            <motion.div
               key={imageIndex}
-              src={images[imageIndex]}
-              alt={`Hero ${imageIndex + 1}`}
-              className="w-full h-full object-cover"
-              initial={{ opacity: 0, scale: 1.2 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-            />
+              custom={imageIndex}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="absolute inset-0"
+            >
+              <motion.img 
+                src={images[imageIndex]}
+                alt={`Hero ${imageIndex + 1}`}
+                className="w-full h-full object-cover"
+                animate={{
+                  scale: [1, 1.1],
+                  x: [0, -20],
+                  y: [0, -20],
+                }}
+                transition={{
+                  duration: 5,
+                  ease: "easeOut",
+                  times: [0, 1],
+                }}
+              />
+              
+              {/* Enhanced overlays */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              />
+              
+              <motion.div 
+                className="absolute inset-0"
+                style={{
+                  background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%)'
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              />
+            </motion.div>
           </AnimatePresence>
           
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/50" />
-          
-          {/* Image Navigation Dots */}
+          {/* Enhanced image navigation dots */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
             {images.map((_, idx) => (
-              <button
+              <motion.button
                 key={idx}
                 onClick={() => handleImageNavigation(idx)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 rounded-full transition-all duration-500 ${
                   idx === imageIndex 
-                    ? 'bg-gray-800 scale-125' 
-                    : 'bg-gray-400 hover:bg-gray-600'
+                    ? 'bg-white scale-125' 
+                    : 'bg-white/50 hover:bg-white/75'
                 }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label={`Go to image ${idx + 1}`}
               />
             ))}
