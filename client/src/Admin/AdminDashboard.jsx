@@ -1,12 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaHome, FaChartBar, FaFileInvoiceDollar, FaUserTie, FaRegBuilding, FaExclamationCircle, FaCog, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaChartBar, FaFileInvoiceDollar, FaUserTie, FaRegBuilding, FaExclamationCircle, FaCog, FaUserCircle, FaSignOutAlt, FaMoneyBillWave } from "react-icons/fa";
 
 export default function Dashboard() {
   const menuItems = [
     { path: "/", icon: <FaHome />, text: "Home" },
     { path: "overview", icon: <FaChartBar />, text: "Overview" },
     { path: "fines", icon: <FaFileInvoiceDollar />, text: "Fines" },
+    { path: "paid-fines", icon: <FaMoneyBillWave />, text: "Paid Fines" },
     { path: "officer", icon: <FaUserTie />, text: "Officer" },
     { path: "post-office", icon: <FaRegBuilding />, text: "Post Office" },
     { path: "reported-issues", icon: <FaExclamationCircle />, text: "Reported Issues" },

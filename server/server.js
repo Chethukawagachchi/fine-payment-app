@@ -535,6 +535,17 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+// paid-fines route
+app.get("/api/paid-fines", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM paidfines");
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error("Error fetching all paid fines:", err);
+    res.status(500).json({ error: err.message, details: err });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

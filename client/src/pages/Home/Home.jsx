@@ -25,29 +25,36 @@ const Home = () => {
     "fine.jpg",
   ];
   
+  const particleCount = 50;
+  const particles = Array.from({ length: particleCount });
+
   const slideVariants = {
     enter: (direction) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 1.2,
+      scale: 1.5,
+      filter: "blur(20px) brightness(0.7)",
     }),
     center: {
       x: 0,
       opacity: 1,
       scale: 1,
+      filter: "blur(0px) brightness(1)",
       transition: {
         x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.5 },
-        scale: { duration: 6 }
+        opacity: { duration: 1.2 },
+        scale: { duration: 1.5 },
+        filter: { duration: 1.2 }
       }
     },
     exit: (direction) => ({
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 1.1,
+      scale: 1.3,
+      filter: "blur(20px) brightness(0.7)",
       transition: {
         x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.5 }
+        opacity: { duration: 0.8 }
       }
     })
   };
@@ -88,19 +95,35 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleImageNavigation = (index) => {
-    setImageIndex(index);
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 1 : 0 }}
-        className="relative"
-      >
-        {/* Hero Section */}
+      <motion.div className="relative">
+        {/* Particle Effect Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {particles.map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              initial={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                opacity: Math.random() * 0.5 + 0.3,
+              }}
+              animate={{
+                y: [null, Math.random() * window.innerHeight],
+                opacity: [null, Math.random() * 0.5 + 0.3],
+              }}
+              transition={{
+                duration: Math.random() * 20 + 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Hero Section with Enhanced Animations */}
         <div className="relative h-[93.5vh] overflow-hidden">
           <AnimatePresence mode="wait" initial={false} custom={imageIndex}>
             <motion.div
@@ -146,39 +169,46 @@ const Home = () => {
                 transition={{ duration: 1 }}
               />
             </motion.div>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0.4, 0.6, 0.4],
+                background: [
+                  "linear-gradient(to bottom, rgba(0,0,0,0.5), transparent, rgba(0,0,0,0.7))",
+                  "linear-gradient(to bottom, rgba(0,0,0,0.6), transparent, rgba(0,0,0,0.8))",
+                  "linear-gradient(to bottom, rgba(0,0,0,0.5), transparent, rgba(0,0,0,0.7))"
+                ]
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity,
+                ease: "easeInOut" 
+              }}
+            />
           </AnimatePresence>
           
-          {/* Enhanced image navigation dots */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
-            {images.map((_, idx) => (
-              <motion.button
-                key={idx}
-                onClick={() => handleImageNavigation(idx)}
-                className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                  idx === imageIndex 
-                    ? 'bg-white scale-125' 
-                    : 'bg-white/50 hover:bg-white/75'
-                }`}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={`Go to image ${idx + 1}`}
-              />
-            ))}
-          </div>
+          {/* Remove or comment out the navigation dots section */}
+          {/* If you want to keep the code but hide it, you can add a hidden className:
+          <motion.div 
+            className="hidden absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4 z-20"
+            ...
+          >
+            {images.map((_, idx) => (...))}
+          </motion.div>
+          */}
 
           {/* Subtle gradient shadow for additional depth */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         </div>
         
-        {/* Hero Content */}
-        <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center ${
-          slideIn ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        } transition-all duration-1000 ease-out`}>
+        {/* Updated Hero Content with centered positioning */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="relative"
+            className="text-center max-w-4xl px-4"
           >
             <motion.div
               animate={{ 
@@ -195,10 +225,21 @@ const Home = () => {
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={texts[textIndex]}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="text-blue-400"
+                    initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0, 
+                      filter: "blur(0px)",
+                      backgroundSize: ["100% 100%", "200% 100%"],
+                      backgroundPosition: ["0% 0%", "100% 0%"]
+                    }}
+                    exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+                    className="text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage: "linear-gradient(45deg, #60A5FA, #3B82F6, #60A5FA)",
+                      backgroundSize: "200% 100%",
+                      transition: "background-position 0.5s ease"
+                    }}
                   >
                     {texts[textIndex]}
                   </motion.span>
@@ -212,27 +253,11 @@ const Home = () => {
               transition={{ delay: 0.7, duration: 1 }}
               className="space-y-4"
             >
-              <h2 className="text-3xl font-light text-white leading-relaxed drop-shadow-lg">
+              <h2 className="text-3xl font-bold text-white leading-relaxed drop-shadow-lg">
                 Fine.lk simplifies the process of managing traffic fines for citizens,
-              </h2>
-              <h2 className="text-3xl font-light text-white leading-relaxed drop-shadow-lg">
+                <br />
                 officers, and post offices
               </h2>
-            </motion.div>
-
-            {/* Enhanced floating button */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="mt-16"
-            >
-              <Link
-                to="/register"
-                className="group relative px-10 py-4 bg-blue-500 rounded-full text-white text-lg font-semibold 
-                transform hover:scale-105 transition-all duration-300 hover:shadow-xl hover:bg-blue-600 overflow-hidden"
-              >
-                <span className="relative z-10">Get Started</span>
-              </Link>
             </motion.div>
           </motion.div>
         </div>

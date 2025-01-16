@@ -6,11 +6,11 @@ import "aos/dist/aos.css";
 
 const About = () => {
   useEffect(() => {
-    AOS.init({ once: true, offset: 100 });
+    AOS.init({ once: true, offset: 120, duration: 1000 });
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-50 via-white to-gray-50">
       <Navbar />
       <div className="font-sans flex-grow">
         {/* Hero Section */}
@@ -18,48 +18,46 @@ const About = () => {
           className="relative bg-cover bg-center bg-fixed overflow-hidden"
           style={{
             backgroundImage: "url('/aboutus.jpg')",
-            height: "75vh",
+            height: "80vh",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 flex flex-col items-center justify-center text-white text-center backdrop-blur-sm">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/50 flex flex-col items-center justify-center text-white text-center backdrop-blur-[2px]">
             <h1
-              className="text-7xl md:text-8xl font-bold mb-6 tracking-wider drop-shadow-lg"
-              data-aos="fade-up"
-              data-aos-duration="1200"
+              className="text-6xl md:text-8xl font-bold mb-8 tracking-wider drop-shadow-xl"
+              data-aos="zoom-in"
+              data-aos-duration="1500"
             >
               About Us
             </h1>
             <div
-              className="h-1 w-32 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full shadow-lg"
+              className="h-1.5 w-40 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full shadow-lg"
               data-aos="fade-up"
               data-aos-duration="1200"
-              data-aos-delay="200"
+              data-aos-delay="300"
             ></div>
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="relative max-w-5xl mx-auto py-24 px-6 lg:px-8">
-          <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
+        <div className="relative max-w-6xl mx-auto py-32 px-6 lg:px-8">
+          <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
           
           <h3
-            className="text-4xl font-bold text-center mb-8 text-gray-800 tracking-tight"
+            className="text-5xl font-bold text-center mb-8 text-gray-800 tracking-tight"
             data-aos="fade-up"
-            data-aos-duration="1000"
           >
-            Fine<span className="text-blue-500">.lk</span>
+            Fine<span className="text-blue-500 bg-clip-text bg-gradient-to-r from-blue-500 to-blue-600">.lk</span>
           </h3>
           <div
-            className="h-1 w-24 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-16 rounded-full"
+            className="h-1.5 w-28 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-20 rounded-full"
             data-aos="fade-up"
-            data-aos-duration="1000"
+            data-aos-delay="200"
           ></div>
 
-          <div className="space-y-12 relative z-10">
+          <div className="space-y-16 relative z-10">
             <p
-              className="text-lg text-gray-700 leading-relaxed px-4 hover:text-gray-900 transition-colors duration-300"
+              className="text-xl text-gray-700 leading-relaxed px-6 hover:text-gray-900 transition-colors duration-300 text-center"
               data-aos="fade-up"
-              data-aos-duration="1000"
             >
               Welcome to Fine.lk, Sri Lanka&apos;s innovative platform dedicated to
               revolutionizing the way fines are managed and paid. Our mission is to
@@ -69,9 +67,8 @@ const About = () => {
             </p>
 
             <p
-              className="text-lg text-gray-700 leading-relaxed px-4 hover:text-gray-900 transition-colors duration-300"
+              className="text-xl text-gray-700 leading-relaxed px-6 hover:text-gray-900 transition-colors duration-300 text-center"
               data-aos="fade-up"
-              data-aos-duration="1000"
               data-aos-delay="100"
             >
               We believe in bridging the gap between technology and public services
@@ -82,9 +79,8 @@ const About = () => {
             </p>
 
             <p
-              className="text-lg text-gray-700 leading-relaxed px-4 hover:text-gray-900 transition-colors duration-300"
+              className="text-xl text-gray-700 leading-relaxed px-6 hover:text-gray-900 transition-colors duration-300 text-center"
               data-aos="fade-up"
-              data-aos-duration="1000"
               data-aos-delay="200"
             >
               As a proud advocate of digitization, Fine.lk is not just about
@@ -95,9 +91,10 @@ const About = () => {
             </p>
           </div>
 
-          {/* Decorative Elements */}
-          <div className="absolute -left-4 top-1/4 w-24 h-24 bg-blue-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute -right-4 bottom-1/4 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+          {/* Enhanced Decorative Elements */}
+          <div className="absolute -left-4 top-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute -right-4 bottom-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute left-1/2 top-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
         </div>
       </div>
       <Footer />

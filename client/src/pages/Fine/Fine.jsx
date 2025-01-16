@@ -1,83 +1,123 @@
-import React, { useEffect } from "react";
-import Footer from "../../components/Footer/Footer";
-import Navbar from "../../components/Navbar/Navbar";
+import { useEffect, useLayoutEffect } from "react";
+import { FaSearch, FaCreditCard, FaShieldAlt, FaClock } from 'react-icons/fa';
 import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
+import "aos/dist/aos.css";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 
 const Fine = () => {
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
-    AOS.init({ duration: 1000 }); // Initialize AOS with a 1-second duration for animation
+    AOS.init({ duration: 1000 });
   }, []);
 
   return (
-    <div className="font-sans relative z-10 bg-[#fff]">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <Navbar />
-      {/* Header Section */}
-      <div
-        className="relative bg-cover bg-center bg-fixed"
-        style={{
-          backgroundImage: "url('fine.jpg')",
-          height: "600px", // Adjusting the height as per your original image
-        }}
-      >
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black bg-opacity-50">
-          <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-bold"
-            data-aos="fade-up"
-          >
-            PAY FINES
-          </h1>
+
+      {/* Hero Section */}
+      <div className="relative h-[80vh] bg-cover bg-center" style={{ backgroundImage: "url('/fine.jpg')" }}>
+        <div className="absolute inset-0 bg-black bg-opacity-60">
+          <div className="container mx-auto h-full flex flex-col items-center justify-center text-white px-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-center mb-6" data-aos="fade-up">
+              Check & Pay Your Traffic Fines
+            </h1>
+            <p className="text-xl md:text-2xl text-center mb-8" data-aos="fade-up" data-aos-delay="200">
+              Quick, secure, and hassle-free payment solution
+            </p>
+            
+            {/* Search Box */}
+            <div className="w-full max-w-md bg-white rounded-lg p-2 flex items-center" data-aos="fade-up" data-aos-delay="400">
+              <input 
+                type="text"
+                placeholder="Enter fine number or vehicle number"
+                className="flex-1 px-4 py-2 text-gray-800 focus:outline-none"
+              />
+              <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <FaSearch className="text-xl" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="max-w-4xl mx-auto py-12 px-6 sm:px-8 lg:px-10">
-        <h3
-          className="text-2xl md:text-3xl font-bold text-center mb-6"
-          data-aos="fade-up"
-        >
-          VIEW &amp; PAY FINES
-        </h3>
-        <div className="h-1 w-20 bg-blue-500 mx-auto mb-8"></div>
-        <p
-          className="text-gray-700 text-base sm:text-lg leading-7 mb-6"
-          data-aos="fade-up"
-        >
-          The *Pay a Fine* feature on fine.lk offers an efficient, secure, and
-          user-friendly solution for individuals to manage and settle their
-          traffic fines seamlessly. Users can instantly retrieve their fine
-          details by entering either a fine reference number or vehicle
-          registration details, providing transparency into the offense,
-          location, and amount due. The platform supports secure online payments
-          through multiple methods, including credit/debit cards, bank
-          transfers, and mobile wallets, ensuring flexibility and convenience
-          for all users. Upon successful payment, users receive immediate
-          confirmation via SMS and email, along with downloadable digital
-          receipts for record-keeping. Additionally, fine.lk incorporates
-          offline payment options by partnering with authorized post offices,
-          addressing the needs of users without consistent internet access and
-          promoting inclusivity across rural and urban areas.
-        </p>
-        <p
-          className="text-gray-700 text-base sm:text-lg leading-7 mb-6"
-          data-aos="fade-up"
-        >
-          The *Pay a Fine* feature on fine.lk offers an efficient, secure, and
-          user-friendly solution for individuals to manage and settle their
-          traffic fines seamlessly. Users can instantly retrieve their fine
-          details by entering either a fine reference number or vehicle
-          registration details, providing transparency into the offense,
-          location, and amount due. The platform supports secure online payments
-          through multiple methods, including credit/debit cards, bank
-          transfers, and mobile wallets, ensuring flexibility and convenience
-          for all users. Upon successful payment, users receive immediate
-          confirmation via SMS and email, along with downloadable digital
-          receipts for record-keeping. Additionally, fine.lk incorporates
-          offline payment options by partnering with authorized post offices,
-          addressing the needs of users without consistent internet access and
-          promoting inclusivity across rural and urban areas.
-        </p>
+      {/* Features Section */}
+      <div className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12" data-aos="fade-up">
+            Why Choose Our Platform?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: <FaCreditCard />, title: "Secure Payments", desc: "Multiple payment options with bank-grade security" },
+              { icon: <FaShieldAlt />, title: "Data Protection", desc: "Your information is always protected" },
+              { icon: <FaClock />, title: "24/7 Access", desc: "Check and pay fines anytime, anywhere" }
+            ].map((feature, index) => (
+              <div 
+                key={index}
+                className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-lg transition-shadow"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <div className="text-4xl text-blue-600 mb-4 flex justify-center">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {/* Quick Steps */}
+      <div className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12" data-aos="fade-up">
+            How It Works
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { step: "1", title: "Enter Details", desc: "Input your fine reference or vehicle number" },
+              { step: "2", title: "Verify Information", desc: "Check fine details and amount" },
+              { step: "3", title: "Complete Payment", desc: "Pay securely using preferred method" }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="relative text-center p-8"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-blue-600 text-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-8" data-aos="fade-up">
+            Ready to Clear Your Fines?
+          </h2>
+          <button 
+            className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            Check Now
+          </button>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );

@@ -37,6 +37,7 @@ import PostReportIssue from "./pages/PostOffices/PostReportIssue";
 import Profile from "./pages/UserDashboard/Profile";
 import Setting from "./Admin/Setting";
 import NoMatch from "./components/NoMatch/NoMatch";
+import PaidFine from "./Admin/PaidFine";
 
 const App = () => {
   return (
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="overview" element={<Overview />} />
           <Route path="fines" element={<Fines />} />
           <Route path="officer" element={<Officer />} />
+          <Route path="paid-fines" element={<PaidFine />} />
           <Route path="post-office" element={<PostOffice />} />
           <Route path="reported-issues" element={<ReportedIssues />} />
           <Route path="setting" element={<Setting />} />

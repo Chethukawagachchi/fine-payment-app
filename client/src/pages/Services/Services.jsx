@@ -1,34 +1,25 @@
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
-import { useEffect } from "react";
-import { motion } from "framer-motion"; // Add this import
+import { motion } from "framer-motion";
 
 const Services = () => {
-  useEffect(() => {
-    const fadeInElements = document.querySelectorAll(".fade-in");
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, ease: "easeOut" }
+  };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("fade-in-visible");
-          }
-        });
-      },
-      {
-        threshold: 0.2, // Trigger when 20% of the element is in view
-      }
-    );
-
-    fadeInElements.forEach((el) => observer.observe(el));
-  }, []);
+  const scaleOnHover = {
+    whileHover: { scale: 1.02 },
+    transition: { type: "spring", stiffness: 300 }
+  };
 
   return (
     <div className="bg-gradient-to-b from-gray-50 via-blue-50 to-white relative overflow-hidden">
-      <div className="fixed inset-0 z-0 opacity-30">
-        <div className="absolute w-96 h-96 -top-48 -left-48 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute w-96 h-96 -top-48 -right-48 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-        <div className="absolute w-96 h-96 -bottom-48 left-48 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+      <div className="fixed inset-0 z-0 opacity-40">
+        <div className="absolute w-[600px] h-[600px] -top-48 -left-48 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+        <div className="absolute w-[600px] h-[600px] -top-48 -right-48 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+        <div className="absolute w-[600px] h-[600px] -bottom-48 left-48 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div>
       
       <Navbar />
@@ -63,100 +54,58 @@ const Services = () => {
               transform: translateY(0);
             }
             .service-card {
-              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-              border: 1px solid rgba(229, 231, 235, 0.5);
-              backdrop-filter: blur(10px);
+              background: rgba(255, 255, 255, 0.8);
+              backdrop-filter: blur(20px);
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+              transform-style: preserve-3d;
+              perspective: 1000px;
             }
+            
             .service-card:hover {
-              transform: translateY(-8px);
-              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-              border-color: rgba(59, 130, 246, 0.2);
+              transform: translateY(-8px) scale(1.01);
+              background: rgba(255, 255, 255, 0.95);
+              border-color: rgba(59, 130, 246, 0.4);
             }
+            
             .service-image {
-              transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+              transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+              filter: brightness(1.05) contrast(1.05);
             }
+            
             .service-card:hover .service-image {
-              transform: scale(1.05);
-            }
-            .gradient-text {
-              background: linear-gradient(135deg, #2563eb, #60a5fa);
-              -webkit-background-clip: text;
-              background-clip: text;
-              color: transparent;
-              animation: gradient 8s ease infinite;
-            }
-            @keyframes gradient {
-              0%, 100% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-            }
-            @media (max-width: 768px) {
-              .service-card {
-                padding: 1.5rem !important;
-              }
-              .service-image {
-                height: 250px !important;
-              }
-            }
-            .animate-blob {
-              animation: blob 7s infinite;
-            }
-            .animation-delay-2000 {
-              animation-delay: 2s;
-            }
-            .animation-delay-4000 {
-              animation-delay: 4s;
-            }
-            
-            @keyframes blob {
-              0% { transform: translate(0px, 0px) scale(1); }
-              33% { transform: translate(30px, -50px) scale(1.1); }
-              66% { transform: translate(-20px, 20px) scale(0.9); }
-              100% { transform: translate(0px, 0px) scale(1); }
+              transform: scale(1.08) translateZ(20px);
             }
             
             .gradient-text {
-              background: linear-gradient(135deg, #1a365d, #3b82f6, #60a5fa);
+              background: linear-gradient(135deg, #1e40af, #3b82f6, #60a5fa);
               background-size: 200% 200%;
               -webkit-background-clip: text;
               background-clip: text;
               color: transparent;
               animation: gradient 8s ease infinite;
             }
-            
-            .service-card {
-              background: rgba(255, 255, 255, 0.7);
-              backdrop-filter: blur(20px);
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-            }
-            
-            .service-card:hover {
-              transform: translateY(-8px) scale(1.01);
-              background: rgba(255, 255, 255, 0.9);
-              border-color: rgba(59, 130, 246, 0.3);
-            }
-            
+
             .floating {
-              animation: floating 3s ease-in-out infinite;
+              animation: floating 6s ease-in-out infinite;
             }
             
             @keyframes floating {
-              0% { transform: translate(0, 0px); }
-              50% { transform: translate(0, 15px); }
-              100% { transform: translate(0, -0px); }
+              0%, 100% { transform: translate(0, 0px) rotate(0deg); }
+              25% { transform: translate(5px, 15px) rotate(1deg); }
+              75% { transform: translate(-5px, -15px) rotate(-1deg); }
             }
           `}</style>
         </head>
         
         <div className="container mx-auto px-4 py-16 md:py-24">
-          {/* Fine.lk Section */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16 md:mb-24"
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-center mb-20 md:mb-32"
           >
-            <h3 className="text-6xl md:text-8xl font-extrabold mb-6 md:mb-8 gradient-text">
+            <h3 className="text-7xl md:text-9xl font-extrabold mb-8 md:mb-10 gradient-text">
               Fine.lk
             </h3>
             <h3 className="text-2xl md:text-3xl font-light mb-6 md:mb-10 text-gray-700">
@@ -168,12 +117,14 @@ const Services = () => {
             </p>
           </motion.div>
 
-          {/* Services Sections */}
-          <div className="space-y-16 md:space-y-32">
-            {/* Citizens Section */}
+          <div className="space-y-20 md:space-y-40">
+            {/* Services sections with enhanced animations */}
             <motion.div 
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              {...scaleOnHover}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
               className="grid md:grid-cols-2 gap-12 md:gap-16 items-center service-card p-8 md:p-12 rounded-3xl"
             >
               <div className="space-y-6 order-2 md:order-1">
@@ -191,7 +142,7 @@ const Services = () => {
                   improve their travel experience.
                 </p>
               </div>
-              <div className="overflow-hidden rounded-2xl shadow-xl order-1 md:order-2">
+              <div className="overflow-hidden rounded-2xl shadow-xl floating">
                 <img
                   src="city.jpg"
                   alt="Citizens using Fine.lk services"
@@ -202,11 +153,14 @@ const Services = () => {
 
             {/* Police Offices Section */}
             <motion.div 
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              {...scaleOnHover}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
               className="grid md:grid-cols-2 gap-12 md:gap-16 items-center service-card p-8 md:p-12 rounded-3xl"
             >
-              <div className="overflow-hidden rounded-2xl shadow-xl">
+              <div className="overflow-hidden rounded-2xl shadow-xl floating">
                 <img
                   src="po.png"
                   alt="Police office services"
@@ -227,8 +181,11 @@ const Services = () => {
 
             {/* Post Office Section */}
             <motion.div 
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              {...scaleOnHover}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
               className="grid md:grid-cols-2 gap-12 md:gap-16 items-center service-card p-8 md:p-12 rounded-3xl"
             >
               <div className="space-y-6 order-2 md:order-1">
@@ -241,7 +198,7 @@ const Services = () => {
                   accuracy and reducing manual errors.
                 </p>
               </div>
-              <div className="overflow-hidden rounded-2xl shadow-xl order-1 md:order-2">
+              <div className="overflow-hidden rounded-2xl shadow-xl floating">
                 <img
                   src="post.png"
                   alt="Post office services"
